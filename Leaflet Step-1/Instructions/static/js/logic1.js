@@ -8,7 +8,7 @@ var myMap = L.map("map", {
 // We use the addTo method to add objects to our map
 L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
+  maxZoom: 12,
   id: "mapbox.light",
   accessToken: API_KEY
 }).addTo(myMap);
@@ -16,10 +16,10 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 // Function that will determine the color of a earthquake based on the magnitude it belongs to
 function getColor(d){
   if (d < 1) {
-      color = "darkseagreen";
+      color = "greenyellow";
   }
   else if (d < 2) {
-      color = "darkgreen";
+      color = "green";
   }
   else if (d < 3 ) {
       color = "yellow";
@@ -51,10 +51,10 @@ d3.json(queryUrl, function(data) {
     var lat = feature.geometry.coordinates[1]
     // adding a circle marker
     L.circle([lat, lon], {
-      fillOpacity: 0.75,
-      color: "grey",
+      fillOpacity: 0.60,
+      color: "lightgrey",
       fillColor: getColor(feature.properties.mag),
-      radius: (feature.properties.mag)*50000
+      radius: (feature.properties.mag)*40000
     }).bindPopup("<h3>" + feature.properties.place +
       "</h3><hr><p>" + new Date(feature.properties.time) +
       "<br> Earthquake Magnitude : "+ feature.properties.mag + "</p>").addTo(myMap);
